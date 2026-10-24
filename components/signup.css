@@ -1,0 +1,58 @@
+/* Signup-only selectors: no changes to the fullscreen experience or exercise layouts. */
+.signup-shell { container-type: inline-size; }
+.signup-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+.signup-card { display: flex; flex-direction: column; min-width: 0; padding: 1.25rem; border-radius: 1.75rem; }
+@container (min-width: 42rem) {
+  .signup-grid { grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); }
+  .signup-card { padding: 1.75rem; border-radius: 2rem; }
+}
+
+/* Only the decorative stage clips. Fields, validation and focus rings remain in normal flow. */
+.signup-cells { position: relative; isolation: isolate; height: 10.5rem; overflow: hidden; pointer-events: none; }
+.signup-cells[data-confirmed="true"] { height: 17rem; margin-block: auto; }
+.signup-cells-halo { position: absolute; inset: 12% 5%; border-radius: 50%; background: radial-gradient(ellipse, var(--ivory), transparent 68%); opacity: 0.65; }
+.signup-cell-orbit { position: absolute; left: 50%; top: 50%; width: min(100%, 19rem); aspect-ratio: 1; transform: translate(-50%, -50%) scale(0.64); }
+.signup-cells[data-confirmed="true"] .signup-cell-orbit { transform: translate(-50%, -50%); }
+.signup-cell {
+  --cell-left: 49%; --cell-top: 47%; --cell-tilt: -12deg; --cell-delay: 0ms;
+  --cell-tone: var(--sky); --cell-light: var(--ivory);
+  position: absolute; left: var(--cell-left); top: var(--cell-top); width: 39%; aspect-ratio: 1.05;
+  transform: translate(-50%, -50%) rotate(var(--cell-tilt));
+}
+.signup-cell > span {
+  display: block; width: 100%; height: 100%; border-radius: 43% 57% 62% 38% / 51% 39% 61% 49%;
+  background: radial-gradient(ellipse at 28% 23%, color-mix(in srgb, var(--cell-light) 85%, transparent), transparent 60%), var(--cell-tone);
+  border: 1px solid color-mix(in srgb, var(--ivory) 65%, transparent);
+  box-shadow: inset -7px -10px 18px color-mix(in srgb, var(--navy) 12%, transparent), inset 3px 4px 10px color-mix(in srgb, var(--ivory) 65%, transparent), 0 10px 24px color-mix(in srgb, var(--navy) 7%, transparent);
+}
+.signup-cell > span::after {
+  content: ""; position: absolute; left: 30%; top: 28%; width: 28%; height: 32%; border-radius: 48% 52% 39% 61%;
+  background: color-mix(in srgb, var(--cell-light) 32%, transparent); border: 1px solid color-mix(in srgb, var(--cell-light) 25%, transparent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--cell-light) 25%, transparent);
+}
+.signup-cell:nth-child(2) { --cell-left: 70%; --cell-top: 30%; --cell-tilt: 28deg; --cell-delay: 80ms; width: 28%; }
+.signup-cell:nth-child(3) { --cell-left: 27%; --cell-top: 31%; --cell-tilt: -36deg; --cell-delay: 160ms; --cell-tone: var(--navy); --cell-light: var(--sky); width: 29%; }
+.signup-cell:nth-child(4) { --cell-left: 29%; --cell-top: 68%; --cell-tilt: 18deg; --cell-delay: 120ms; width: 26%; }
+.signup-cell:nth-child(5) { --cell-left: 66%; --cell-top: 71%; --cell-tilt: 55deg; --cell-delay: 240ms; --cell-tone: var(--navy); --cell-light: var(--sky); width: 34%; }
+.signup-cell:nth-child(6) { --cell-left: 84%; --cell-top: 52%; --cell-tilt: -10deg; --cell-delay: 320ms; width: 13%; }
+.signup-cell:nth-child(7) { --cell-left: 47%; --cell-top: 15%; --cell-tilt: 35deg; --cell-delay: 400ms; width: 12%; }
+.signup-cell-check { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 3.5rem; height: 3.5rem; transform: translate(-50%, -50%); border: 1px solid var(--ivory); border-radius: 50%; color: var(--navy); background: color-mix(in srgb, var(--ivory) 90%, transparent); box-shadow: 0 8px 24px color-mix(in srgb, var(--navy) 10%, transparent); }
+
+@keyframes signup-cell-unfold {
+  0% { left: 50%; top: 50%; opacity: 0; transform: translate(-50%, -50%) rotate(-35deg) scale(0.12); }
+  18% { opacity: 1; }
+  60% { left: var(--cell-left); top: var(--cell-top); transform: translate(-50%, -50%) rotate(calc(var(--cell-tilt) + 8deg)) scale(1.08); }
+  100% { left: var(--cell-left); top: var(--cell-top); opacity: 1; transform: translate(-50%, -50%) rotate(var(--cell-tilt)) scale(1); }
+}
+@keyframes signup-cell-membrane {
+  0%, 100% { border-radius: 43% 57% 62% 38% / 51% 39% 61% 49%; }
+  45% { border-radius: 63% 37% 41% 59% / 38% 61% 39% 62%; }
+  75% { border-radius: 38% 62% 56% 44% / 60% 42% 58% 40%; }
+}
+@keyframes signup-cell-arrive { from { opacity: 0; scale: 0.85; } to { opacity: 1; scale: 1; } }
+@media (prefers-reduced-motion: no-preference) {
+  .signup-cells[data-confirmed="true"] .signup-cell { animation: signup-cell-unfold 3600ms cubic-bezier(0.22, 1, 0.36, 1) var(--cell-delay) both; }
+  .signup-cells[data-confirmed="true"] .signup-cell > span { animation: signup-cell-membrane 4200ms ease-in-out both; }
+  .signup-cells[data-confirmed="true"] .signup-cell-check { animation: signup-cell-arrive 900ms ease-out 500ms both; }
+  .signup-cells[data-confirmed="true"] .signup-cells-halo { animation: signup-cell-arrive 2400ms ease-out both; }
+}

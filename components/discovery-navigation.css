@@ -1,0 +1,16 @@
+[data-discovery-navigation] { order: 3; color: var(--navy); }
+[data-discovery-navigation] [data-discovery-desktop] { display: none; }
+[data-discovery-navigation] a { display: flex; min-height: 44px; align-items: center; padding: 8px 12px; font-size: 13px; text-decoration: none; border-radius: 999px; }
+[data-discovery-navigation] a:hover { background: var(--sky-soft); }
+[data-discovery-navigation] [data-signup-link] { background: var(--navy); color: var(--ivory); padding-inline: 20px; }
+[data-discovery-menu] summary { display: grid; width: 44px; height: 44px; place-items: center; border: 1px solid var(--border); border-radius: 50%; cursor: pointer; list-style: none; }
+[data-discovery-menu] summary::-webkit-details-marker { display: none; }
+[data-discovery-menu][open] summary { background: var(--sky-soft); }
+[data-landing-shell] > header [data-discovery-menu] nav { display: flex; position: absolute; top: calc(100% - 1px); inset-inline: 20px; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid var(--border); border-radius: 24px; background: var(--background); box-shadow: 0 12px 28px color-mix(in srgb, var(--navy) 8%, transparent); }
+[data-landing-shell][data-route="/decouvrir"] > header > div > [role="group"] { margin-left: auto; }
+@media (min-width: 1024px) {
+  [data-discovery-navigation] { order: 0; margin-left: auto; }
+  [data-discovery-navigation] [data-discovery-desktop] { display: flex; align-items: center; gap: 4px; }
+  [data-discovery-menu] { display: none; }
+  [data-landing-shell][data-route="/decouvrir"] > header > div > [role="group"] { margin-left: 0; }
+}

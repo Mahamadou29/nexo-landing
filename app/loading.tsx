@@ -1,0 +1,2 @@
+import { Skeleton } from "@/components/ui/skeleton";
+export default function Loading() { return <div className="mx-auto max-w-5xl space-y-8 px-6 py-20" role="status" aria-label="Chargement / Loading"><Skeleton className="mx-auto h-20 w-2/3 rounded-2xl" /><div className="grid gap-6 sm:grid-cols-2"><Skeleton className="h-96 rounded-3xl" /><Skeleton className="h-96 rounded-3xl" /></div><span className="sr-only">Chargement / Loading…</span></div>; }

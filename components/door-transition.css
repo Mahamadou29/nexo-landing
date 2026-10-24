@@ -1,0 +1,34 @@
+.door-transition {
+  --door-cell-accent: var(--portal-ciel);
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: clip;
+  pointer-events: auto;
+  contain: strict;
+}
+.door-transition[data-phase="idle"] { display: none; pointer-events: none; }
+.door-transition[data-character="noir"] { --door-cell-accent: var(--portal-noir); }
+.door-transition-canvas { display: block; width: 100%; height: 100%; }
+.door-transition-canvas g { transform-origin: 0 0; }
+.door-cell-center { stop-color: var(--background); }
+.door-cell-middle { stop-color: var(--sky-soft); }
+.door-cell-color { stop-color: color-mix(in srgb, var(--door-cell-accent) 32%, var(--sky-soft)); }
+.door-cell-edge { stop-color: color-mix(in srgb, var(--navy) 24%, var(--sky)); }
+.door-cell-opening { display: none; }
+.door-transition:is([data-phase="waiting"], [data-phase="revealing"]) .door-cell-cover { display: none; }
+.door-transition:is([data-phase="waiting"], [data-phase="revealing"]) .door-cell-opening { display: block; }
+/* A slow network becomes ordinary loading UI, not an indefinitely blocking veil. */
+#main-content:has(> [data-door-pending]) > .entrance-home { display: none; }
+.door-pending {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  min-height: 50svh;
+  padding: 2rem;
+  color: var(--navy);
+  text-align: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .door-transition { display: none; pointer-events: none; }
+}
