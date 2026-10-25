@@ -58,7 +58,7 @@ test("font advances center the phrase and preserve spaces without animating them
   assert.deepEqual(entranceLetterPositions([]), []);
 });
 
-test("expanded FR/EN letters enter, hold, and clear inside each 14-second scene", () => {
+test("expanded FR/EN letters retain their readable hold and clear before the exit ceiling", () => {
   const t = entranceTiming;
   for (const entries of Object.values(entranceEntries)) {
     for (const entry of entries.filter(supportsLetterFlight)) {
@@ -82,8 +82,8 @@ test("expanded FR/EN letters enter, hold, and clear inside each 14-second scene"
       }
     }
   }
-  assert.equal(t.passage, 14);
-  assert.equal(t.passage - t.clearAt, 2);
+  assert.equal(t.enterAt, 0.15);
+  assert.equal(t.clearAt, 12);
 });
 
 test("evaporation pores cover the entire glyph, not just a partial final dissolve", () => {

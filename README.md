@@ -55,16 +55,7 @@ Au survol et au focus clavier, les avatars restent parfaitement immobiles. Un po
 
 Uniquement sur `/`, un décor GSAP derrière les avatars, sans intercepter les clics et masqué aux lecteurs d’écran. Une seule expression à la fois : **Respire / Ressens / Sois toi**, ou **Breathe / Feel / Be yourself** via le sélecteur FR/EN existant. Encre issue du token existant `--entrance-ink`. **Aucune peinture**, projection, texture de grain, couleur de peinture ou effacement global ; aucun média, service externe ou dépendance ajouté.
 
-La boucle dure exactement **84 s**, six passages de **14 s** :
-
-| Temps | FR / EN | Chorégraphie | Ordre des lettres |
-| --- | --- | --- | --- |
-| 0–14 s | Respire / Breathe | Zoom vers le spectateur | gauche → droite |
-| 14–28 s | Ressens / Feel | Dispersion latérale | droite → gauche |
-| 28–42 s | Sois toi / Be yourself | Pliage en traits | gauche → droite |
-| 42–56 s | Respire / Breathe | Évaporation progressive | droite → gauche |
-| 56–70 s | Ressens / Feel | Zoom vers le spectateur | gauche → droite |
-| 70–84 s | Sois toi / Be yourself | Dispersion latérale | droite → gauche |
+Les passages s’enchaînent **dès la fin de leur dernière animation de sortie**, sans créneau fixe de 14 s ni pause vide entre les messages. La durée dépend du nombre de lettres ou de mots et de la variante choisie ; le temps de lecture et les chorégraphies restent inchangés. Ce principe s’applique aux vols de lettres comme aux phrases tamponnées, en escalier ou tracées.
 
 Chaque lettre a ses propres groupes de déplacement et de forme ; **aucune mise à l’échelle du mot entier**. Les entrées démarrent à 0,15 s, décalées de 0,08 s, et durent 1,65 s. Après composition, les sorties démarrent à 3,1 s, décalées de 0,62 s (espaces exclus), dans l’ordre indiqué. Les durées de sortie sont propres aux variantes :
 
@@ -73,7 +64,7 @@ Chaque lettre a ses propres groupes de déplacement et de forme ; **aucune mise 
 - **Pliage — 2,65 s** : dépliage de traits alternant axes horizontal et vertical ; sortie par compression et inclinaison pendant 2,1 s, puis contraction des traits jusqu’à une taille nulle pendant 0,55 s. **Pas de fondu**.
 - **Évaporation — 3,2 s** : apparition douce ascendante ; les lettres montent légèrement en se désagrégeant du bas vers le haut. Neuf pores elliptiques locaux déterministes par lettre, réservés à ce passage : délai de 0,65 s, croissance sur 2,03 s, décalage de 0,065 s. Le masque finit par consommer intégralement chaque glyphe ; **aucun masque partagé**.
 
-Les espacements réels sont mesurés après chargement de la police ; les espaces sont préservées mais ne sont pas animées. Toutes les lettres FR/EN ont fini avant 12 s ; le reste du passage est vide (au moins 2 s de repos, davantage pour les mots courts), sans fondu collectif final. Le prochain passage commence à 14 s. Aucun flash intentionnel, filtre animé ou boucle de calcul React par image.
+Les espacements réels sont mesurés après chargement de la police ; les espaces sont préservés mais ne sont pas animés. Toutes les lettres FR/EN ont fini avant 12 s ; la timeline s’arrête à sa durée effective et déclenche immédiatement le passage suivant, sans fondu collectif final. L’entrée suivante conserve son amorce de 0,15 s pour les lettres, ou de 0,2 s pour les phrases. Les tests des constructeurs d’animation vérifient l’absence de délai résiduel pour les variantes FR/EN, y compris les mots courts. Aucun flash intentionnel, filtre animé ou boucle de calcul React par image.
 
 Petit bouton pause/reprise en bas à gauche **du bloc des portes**, séparé du consentement : Tab puis Entrée/Espace, libellé et infobulle traduits. L’onglet masqué suspend la timeline ; le retour respecte une pause manuelle. Le choix de pause survit au changement de langue (pas à la sortie de route). `prefers-reduced-motion: reduce` masque entièrement le décor et le bouton, empêche le chargement initial de GSAP et détruit toute animation déjà active si la préférence change. Démontage et changement de langue neutralisent le résultat d’un import encore en attente, retirent l’écoute de visibilité et rétablissent les attributs/styles via `gsap.context().revert()`. Décor et débordements sont confinés au bloc des portes ; header et footer restent inchangés dans le flux. Sans JavaScript ou si le chunk GSAP échoue, les portes restent seules et utilisables.
 

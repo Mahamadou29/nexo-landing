@@ -94,7 +94,8 @@ export function animateEntranceLetters(timeline: Timeline, word: SVGGElement, cu
     timeline.set(flight, { opacity: 0 }, end);
   });
 
-  timeline.set(word, { opacity: 0 }, timing.passage);
+  // Finish with the last exit, not a fixed slot that leaves the canvas empty.
+  timeline.set(word, { opacity: 0 }, timeline.duration());
 }
 
 // One measured phrase, one timeline. No particles, animated filters, or DOM clones.
@@ -192,5 +193,5 @@ export function animateEntrancePhrase(timeline: Timeline, stage: SVGGElement, sc
     if (rail) timeline.to(rail, { strokeDashoffset: -1, duration: 0.8, ease: "sine.inOut" }, out);
   });
 
-  timeline.set(stage, { opacity: 0 }, entranceTiming.passage);
+  timeline.set(stage, { opacity: 0 }, timeline.duration());
 }

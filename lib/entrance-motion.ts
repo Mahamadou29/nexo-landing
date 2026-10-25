@@ -2,7 +2,6 @@ export type EntranceVariant = "zoom" | "lateral" | "fold" | "evaporate";
 export type EntranceCue = { reverse: boolean; variant: EntranceVariant };
 
 export const entranceTiming = {
-  passage: 14,
   enterAt: 0.15,
   enterStagger: 0.08,
   enterDuration: 1.65,
